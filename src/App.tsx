@@ -73,7 +73,7 @@ function App() {
       .on('postgres_changes', { event: '*', schema: 'public', table: 'questions', filter: `room_id=eq.${room.id}` }, () => refreshRoom(room.id))
       .on('postgres_changes', { event: '*', schema: 'public', table: 'answers', filter: `room_id=eq.${room.id}` }, () => refreshRoom(room.id))
       .subscribe()
-    return () => { supabase.removeChannel(channel) }
+    return () => { supabase?.removeChannel(channel) }
   }, [room?.id])
 
   useEffect(() => {
@@ -166,7 +166,6 @@ function App() {
 
   if (error) setNotice(error.message)
 }
-   
 
   async function submitAnswer(optionIndex: number) {
     if (!room || !me || !currentQuestion || !supabase || myAnswer || room.status !== 'question' || secondsLeft <= 0) return
